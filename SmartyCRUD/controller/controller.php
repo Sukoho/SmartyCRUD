@@ -10,6 +10,11 @@ if (empty($_POST)) {
 	// -----------------INSCRIPTION-----------------
 
 if(isset($_POST['inscription'])){
+
+    // echo "<pre>";
+    // var_dump($_POST);
+    // echo "</pre>";
+
         //verifie si les champs sont remplis
         $error = User::checkData($_POST);
 
@@ -32,24 +37,22 @@ if(isset($_POST['inscription'])){
 
         //vide le tableau des champs vide
 		$last = array_filter($error);
-
-            if (!empty($last)){
+        if (!empty($last)){
                 session_start();
                 $_SESSION['error'] = $last;
                 header("location: ../model/errorIns.php?error=1");
                 exit;
-            }
+        }
+
             //s'il n'y a pas d'erreurs, création de l'instance User
         	if (empty($last)){
-            $newUser = User::build(strtoupper($_POST['nom']), ucwords(strtolower($_POST['prenom'])), $_POST['email'], password_hash($_POST['pwd'],PASSWORD_BCRYPT));
-
+            $newUser = User::build(strtoupper($_POST['nom']), ucwords(strtolower($_POST['prenom'])), $_POST['email'], password_hash($_POST['pwd'], PASSWORD_BCRYPT));
                 //envoie de l'instance dans la BDD
-                if($newUser->AddUser()){
-                    session_start();
-                    $_SESSION['user'] = $newUser;
-                    header("location:../model/profil.php");
-                    exit();
-                }
+                $newUser->AddUser();    
+                session_start();
+                $_SESSION['user'] = $newUser;
+                header("location: ../model/profil.php");
+                exit();
             }
         }
 }
@@ -90,14 +93,13 @@ if(isset($_POST["connexion"])){
     		if (empty($verif)) {
                 $iden = array_filter($verif);
                 session_start();
-                $iden[] = "Vos identifints sont incorrects !";
+                $iden[] = "Vos identifiants sont incorrects !";
                 $_SESSION['error'] = $iden;
     			header("location: ../model/errorCo.php?error=1");        
     		}else{
     			session_start();
     			$_SESSION["user"] = $verif;
-    			header("location: ../model/profil.php");
-        
+    			header("location: ../model/profil.php");        
     		}
     }
 }
@@ -123,11 +125,12 @@ if(isset($_POST['modifier'])){
     }
 
     // verification de la construction du mot de passe et la confirmation
-    if($_POST["pwd"] != $_POST["pwd2"]){
-            $error[] = "Les deux mots de passes doivent être identiques !";
+    if($_POST["pwd"] == $_POST["pwd2"]){            
         if (!empty($_POST["pwd"]) && !empty($_POST["pwd2"])) {
             $error[] = User::checkForcePwd($_POST["pwd"]);  
         }
+    }else{
+        $error[] = "Les deux mots de passes doivent être identiques !";
     }
 
     //vide le tableau des champs vide

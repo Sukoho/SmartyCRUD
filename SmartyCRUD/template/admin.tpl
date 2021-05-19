@@ -10,7 +10,7 @@
 					<p><label for="prenom">Prénom : </label>
 					<input type="prenom" name="prenom" id="prenom" value="{$prenom}" class="shadow"></p>
 					<p><label for="email">Mail : </label>
-					<input type="email" name="email" id="email" value="{$email}" class="shadow"></p>
+					<input type="email" name="email" id="email" placeholder="{$email}" class="shadow"></p>
 				<p><label for="pwd">Modifier le mot de passe : </label>
 				<input type="password" id="pwd" name="pwd" class="shadow"></p>
 				<p><label for="pwd2">Confirmation du mot de passe : </label>

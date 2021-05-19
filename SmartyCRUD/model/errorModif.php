@@ -5,7 +5,12 @@ include 'tout.php';
 
 session_start();
 
-$tab = $_SESSION['error'];
+if (!empty($_GET['error']) and $_GET['error'] == 1 and !empty($_SESSION['user']->id_user)){
+		if(isset($_SESSION['error'])){
+			$tab = $_SESSION['error'];
+		}else{
+			$tab = null;
+		}
 $smarty = new Smarty();
 
 $smarty->assign("titre", "Modifier");
@@ -18,3 +23,7 @@ $smarty->assign("titre", "Profil");
 $smarty->assign("error", $tab);
 $smarty->assign("css", "../css/style.css");
 $smarty->display('../template/errorModif.tpl');
+}else{
+	header("location: ../index.php");
+	exit;
+}

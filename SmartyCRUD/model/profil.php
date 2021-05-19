@@ -4,7 +4,7 @@ include 'tout.php';
 
 session_start();
 
-if(empty($_SESSION) or empty($_SESSION['user']->id_user)){
+if(empty($_SESSION)){
 	header("location: ../index.php");
 }
 

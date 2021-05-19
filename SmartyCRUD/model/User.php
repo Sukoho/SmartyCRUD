@@ -57,7 +57,7 @@ class User
             return $error;
         }
 
-        	public static function checkDataCo($data){
+    public static function checkDataCo($data){
             $error = array();       
             if(empty($data['email'])){
                 $error[] = "L'adresse email est obligatoire";
@@ -96,7 +96,7 @@ class User
 		au moins une minuscule
 		au moins un chiffre
 		au moins un caractère spécial
-		au moins 6 caractères
+		au moins 8 caractères
 		*/
 		if(strlen($str) < 8){
 			return "Le mot de passe est trop court";
@@ -143,11 +143,12 @@ class User
             // echo "<pre>";
             // var_dump($req->debugDumpParams());
             // echo "</pre>";
+            $req->execute();
             $result = $req->fetch(PDO::FETCH_OBJ); 
             if (!empty($result)) {
-                return "";
-            }else{
                 return "L'adresse Email est déjà utilisée !";
+            }else{
+                return "";
             } 
         }
     	catch (PDOException $e) {
@@ -168,7 +169,7 @@ class User
             $req->execute();
             $result = $req->fetch(PDO::FETCH_OBJ); 
             if (empty($result)) {
-                return "Vos identifints sont incorrects !";
+                return "Vos identifiants sont incorrects !";
             }else{
                 return "";
             }  
@@ -207,7 +208,7 @@ class User
 	public static function getAll(){
 		try {
             $bdd = Database::cobdd();
-            $sql = "SELECT id_user, nom, prenom, mail FROM user;";
+            $sql = "SELECT id_user, nom, prenom, mail FROM user ORDER BY nom;";
             $req = $bdd->query($sql);
             // echo "<pre>";
             // var_dump($req->debugDumpParams());

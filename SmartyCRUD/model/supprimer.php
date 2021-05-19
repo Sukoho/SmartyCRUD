@@ -8,6 +8,5 @@ if(empty($_SESSION)){
 }
 session_start();
 User::deleteUser($_SESSION['user']->id_user);
-session_unset();
 session_destroy();
 header("location:../index.php");

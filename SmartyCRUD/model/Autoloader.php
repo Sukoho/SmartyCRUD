@@ -1,4 +1,6 @@
 <?php
+
+
 class Autoloader{
 	
 	//charge les classes dont elle reçoit le nom en paramètre
