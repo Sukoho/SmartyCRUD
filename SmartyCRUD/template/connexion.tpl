@@ -14,4 +14,3 @@
 		</form>
 	</div>
 {/block}
-{block name=titre}$titre{/block}

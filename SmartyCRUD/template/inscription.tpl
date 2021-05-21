@@ -23,8 +23,6 @@
 	</div>
 {/block}
 
-{block name=titre}$titre{/block}
-
 {block name=js}
 <script>
     let pass = document.getElementById("pwd");  
