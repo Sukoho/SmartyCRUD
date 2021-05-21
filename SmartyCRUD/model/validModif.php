@@ -5,6 +5,12 @@ include 'tout.php';
 
 session_start();
 
+if (!empty($_GET['valid']) and $_GET['valid'] == 1 and !empty($_SESSION['user']->id_user)){
+		if(isset($_SESSION['error'])){
+			$tab = $_SESSION['error'];
+		}else{
+			$tab = null;
+		}
 $smarty = new Smarty();
 
 $smarty->assign("titre", "Modifier");
@@ -16,3 +22,7 @@ $smarty->assign("titre", "Profil");
 
 $smarty->assign("css", "../css/style.css");
 $smarty->display('../template/validModif.tpl');
+}else{
+	header("location: ../index.php");
+	exit;
+}

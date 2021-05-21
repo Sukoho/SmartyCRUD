@@ -172,7 +172,7 @@ if(isset($_POST['modifier'])){
         $verif = User::getUserByID($_POST["id"]);
         session_start();
         $_SESSION['user'] = $verif;
-        header("location: ../model/validModif.php");
+        header("location: ../model/validModif.php?valid=1");
         exit;
     }
 } 
