@@ -129,7 +129,7 @@ class User
 	}
 
 	public static function checkEmail($str){
-		if(!filter_var($str, FILTER_VALIDATE_EMAIL)){
+		if(!filter_var($str, FILTER_VALIDATE_EMAIL) or preg_match("/[\&\~\#\'\{\}\`\|\^\=\$\%\µ\*\!\/\?]/", $str)){
 		return "email mal formé";
 		} return "";
 	}
